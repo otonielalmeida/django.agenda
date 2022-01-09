@@ -13,5 +13,6 @@ class Contato(models.Model):
     data_criacao = models.DateTimeField(default=timezone.now, blank=True, )
     descricao = models.TextField(blank=True, default='')
     categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING, default='')
+    visivel = models.BooleanField(default=True)
     def __str__(self):
         return self.nome
