@@ -14,5 +14,6 @@ class Contato(models.Model):
     descricao = models.TextField(blank=True, default='')
     categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING, default='')
     visivel = models.BooleanField(default=True)
+    foto = models.ImageField(blank=True, upload_to='fotos/%Y/%m/%d')
     def __str__(self):
         return self.nome

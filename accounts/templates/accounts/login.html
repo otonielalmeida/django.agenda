@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titulo %}Login | {%endblock%}
+{% block conteudo %}
+
+<h1 class="mt-3 mb-3 display-4">Login</h1>
+<br>
+<br>
+{% if not user.is_authenticated %}
+<form method="POST" action="{% url 'login' %}">
+  {% include 'parciais/_messages.html' %}
+  {% csrf_token %}
+  <div class="form-group">
+    {% csrf_token %}
+    <label>Usuario</label>
+    <input name="usuario" value="{{ request.POST.usuario }}"
+           type="text" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Senha</label>
+    <input name="senha" type="password" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-primary">Log in</button>
+  <button type="button" class="btn btn-dark">
+    <a style="text-decoration: none; color:white;"
+       href="{% url 'register' %}">Registre-se </a></button>
+</form>
+{% else %}
+<div class="p-3 mb-2 bg-dark text-secondary">
+
+  Sessao atual: {{ user }}
+  <br>
+  <br>
+  <p class="text-secondary"><a class="mb-0" style="text-decoration: none; color:white;" href="{% url 'logout' %}">Clique aqui para sair</a></p>
+  <p class="text-secondary"><a href="{% url 'dashboard' %}" style="text-decoration: none; color:white;">Clique aqui para acessar sua dashboard</a></p>
+  <p class="text-secondary"><a href="{% url 'index' %}" style="text-decoration: none; color:white;">Clique aqui para acessar a Agenda</a></p>
+
+</div>
+{% endif %}
+{% endblock %}

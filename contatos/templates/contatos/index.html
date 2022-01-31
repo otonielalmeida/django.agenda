@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block titulo %}{%endblock%}
 {% block conteudo %}
  <h1 class="mt-5">Minha agenda</h1>
 
         <table class="table">
           <thead>
             <tr>
+              <th>ID</th>
               <th>Nome</th>
               <th>Sobrenome</th>
               <th>Telefone</th>
@@ -14,8 +16,9 @@
           </thead>
           <tbody>
             {% for contato in contatos %}
-              {% if contato.visivel %}
+              <!-- {% if contato.visivel %} -->
               <tr>
+                <td>{{ contato.id }}</td>
                 <td>
                   <a href="{% url 'ver_contato' contato_id=contato.id %}"> {{ contato.nome }}</a>
                 </td>
@@ -23,19 +26,20 @@
                 <td>{{ contato.telefone }}</td>
                 <td>{{ contato.categoria }}</td>
               </tr>
-              {% endif %}
+              <!-- {% endif %} -->
             {% endfor %}
           </tbody>
         </table>
+
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-center">
             {% for pagina in contatos.paginator.page_range %}
               {% if contatos.number == pagina %}
-                <li class="page-item active"><a class="page-link" href="?p={{ pagina }}">{{pagina}}</a></li>
+                <li class="page-item active"><a class="page-link" href="?p={{ pagina }}&termo={{ request.GET.termo }}">{{pagina}}</a></li>
               {% else %}
-                <li class="page-item"><a class="page-link" href="?p={{ pagina }}">{{pagina}}</a></li>
+                <li class="page-item"><a class="page-link" href="?p={{ pagina }}&termo={{ request.GET.termo }}">{{pagina}}</a></li>
               {% endif %}
             {% endfor %}
-  </ul>
-</nav>
-      {%endblock%}
+          </ul>
+        </nav>
+{%endblock%}
